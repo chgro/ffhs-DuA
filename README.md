@@ -1,15 +1,22 @@
 # D&A, Datenstrukturen und Algorithmen, INF-P-SE003, BE1, HS20/21
 
-- [D&A, Datenstrukturen und Algorithmen, INF-P-SE003, BE1, HS20/21](#d-a--datenstrukturen-und-algorithmen--inf-p-se003--be1--hs20-21)
 - [1 Grundlagen](#1-grundlagen)
       - [Lernziele](#lernziele)
-      - [Vorbereitung](#vorbereitung)
-      - [Präsenz](#pr-senz)
+          - [Vorbereitung](#vorbereitung)
+          - [Präsenz](#pr-senz)
+
+    + [Intuitiver Algorithmus-Begriff](#intuitiver-algorithmus-begriff)
+    + [Bausteine eines Algorithmus](#bausteine-eines-algorithmus)
+    + [Sprachen und Grammatiken](#sprachen-und-grammatiken)
+    + [Reguläre Ausdrücke (Regular Expressions oder Regex)](#regul-re-ausdr-cke--regular-expressions-oder-regex-)
+  * [Datentypen und Terme](#datentypen-und-terme)
   * [Applikative Algorithmen](#applikative-algorithmen)
   * [Imperative Algorithmen](#imperative-algorithmen)
   * [Deduktive Algorithmen](#deduktive-algorithmen)
       - [Nachbearbeitung](#nachbearbeitung)
+    + [Backus-Naur-Form (BNF)](#backus-naur-form--bnf-)
           + [Implementierungsaufgabe zu Permutationen](#implementierungsaufgabe-zu-permutationen)
+
 - [2 Such- und Sortierverfahren, Registermaschinen](#2-such--und-sortierverfahren--registermaschinen)
       - [Lernziele](#lernziele-1)
       - [Vorbereitung](#vorbereitung-1)
@@ -26,8 +33,10 @@
     + [QuickSort](#quicksort)
     + [Vergleich Stabilität und Komplexität Sortierverfahren](#vergleich-stabilit-t-und-komplexit-t-sortierverfahren)
         * [Aufgaben](#aufgaben)
+      - [Auftrag](#auftrag)
         * [remasp](#remasp)
       - [Präsenz](#pr-senz-1)
+    + [Church'sche These](#church-sche-these)
   * [Komplexität](#komplexit-t)
     + [Analyse von Algorithmen](#analyse-von-algorithmen)
     + [Bewertungskriterien von Algorithmen](#bewertungskriterien-von-algorithmen)
@@ -38,6 +47,7 @@
       - [Präsenz](#pr-senz-2)
   * [Berechenbarkeit und Entscheidbarkeit](#berechenbarkeit-und-entscheidbarkeit)
   * [Korrektheit und Terminierung](#korrektheit-und-terminierung)
+    + [Imperative Algorithmen](#imperative-algorithmen-1)
     + [Applikative Algorithmen](#applikative-algorithmen-1)
       - [Algorithmenmuster](#algorithmenmuster)
         * [Brute force](#brute-force)
@@ -51,13 +61,32 @@
       - [Lernziele](#lernziele-3)
       - [Vorbereitung](#vorbereitung-2)
       - [Präsenz](#pr-senz-3)
+          + [Java Collection Framework (JCF)](#java-collection-framework--jcf-)
       - [Nachbearbeitung](#nachbearbeitung-3)
   * [5 Bäume](#5-b-ume)
       - [Lernziele](#lernziele-4)
       - [Vorbereitung](#vorbereitung-3)
+      - [Einführende Aufgaben zu Suchbäumen](#einf-hrende-aufgaben-zu-suchb-umen)
       - [Präsenz](#pr-senz-4)
+        * [Bäume](#b-ume)
+        * [Binäre Bäume (BB)](#bin-re-b-ume--bb-)
+        * [Suchen, Einfügen und Löschen in sortierten binären Bäumen](#suchen--einf-gen-und-l-schen-in-sortierten-bin-ren-b-umen)
+        * [Traversierungsarten von binären Bäumen](#traversierungsarten-von-bin-ren-b-umen)
+        * [Halde (Heap)](#halde--heap-)
+        * [HeapSort](#heapsort)
+        * [AVL-Bäume](#avl-b-ume)
+        * [B-Bäume](#b-b-ume)
+        * [2,3,4-Bäume:](#2-3-4-b-ume-)
+        * [Rot-Schwarz-Bäume (RB-Bäume)](#rot-schwarz-b-ume--rb-b-ume-)
       - [Nachbearbeitung](#nachbearbeitung-4)
         * [Merken für die Prüfung:](#merken-f-r-die-pr-fung-)
+  * [Musterprüfung](#musterpr-fung)
+    + [1. Aufgabe: Sortieren (8 P / 10 min)](#1-aufgabe--sortieren--8-p---10-min-)
+    + [2. Aufgabe: Iteration und Rekursion (10 P / 15 min)](#2-aufgabe--iteration-und-rekursion--10-p---15-min-)
+    + [3. Aufgabe: Komplexität (10 P / 10 min)](#3-aufgabe--komplexit-t--10-p---10-min-)
+    + [4. Aufgabe: Verkettete Listen (8 P / 10 min)](#4-aufgabe--verkettete-listen--8-p---10-min-)
+    + [5. Aufgabe: Suchbäume (9 P / 15 min) a. [4 Punkte]](#5-aufgabe--suchb-ume--9-p---15-min--a--4-punkte-)
+    + [7. Aufgabe: Terminierung (9 P / 15 min)](#7-aufgabe--terminierung--9-p---15-min-)
 
 
 ---
@@ -80,8 +109,8 @@
 
 #### Präsenz
 
-###Intuitiver Algorithmus-Begriff 
-  
+### Intuitiver Algorithmus-Begriff 
+
 Ein Algorithmus ist eine präzise (in einer festegelten Sprache abgefasste) endliche Beschreibung eines allgemeinen Verfahrens unter Verwendung ausführbarer elementarer Verbindungs-Schritten.
 
 - Terminierung
@@ -95,7 +124,8 @@ Ein Algorithmus ist eine präzise (in einer festegelten Sprache abgefasste) endl
 - Rekursion
     - Das Thema ist vom OOP-Kurs bekannt: eine Methode ist rekursiv, wenn sie sich selber aufruft.
     - Die Rekursuion bedeutet die Anwendung dessselben Prinzips auf kleinere oder einfachere Teilprobleme, bis diese Teilprobleme so klein sind, dass sie direkt gelöst werden können.
-     
+    
+
 Iterativ:
 
     public int fakultätIterativ (int n) {
@@ -118,7 +148,7 @@ Rekursiv:
 
 
 
-###Bausteine eines Algorithmus
+### Bausteine eines Algorithmus
 
 - elementare Operationen
     - Schritte, die mit je einem kurzen Satz ohne weitere Detailierung beschrieben werden können (=> “Multipliziere x mit 3”)
@@ -131,18 +161,18 @@ Rekursiv:
 
 Die übrigen Bausteine werden mit Vorteil als Pseudocode-Konstrukte dargestellt. Diese Notation benutzt einige allgemein bekannte Elemente von verbreiteten Programmiersprachen in Kombination mit “Prosa”-Ergänzungen, wobei die technischen Regel des ausführbaren Code’s ignoriert werden können.
 
-###Sprachen und Grammatiken
+### Sprachen und Grammatiken
 
 - Die Zusammenfassung von Syntaxregeln einer beliebigen Sprache wird als ihre Grammatik bezeichnet.
 - Zusätzlich zu den syntaktischen Einschränkungen müssen die Sätze einer Sprache auch semantisch korrekt sein, d.h. eine plausible Bedeutung haben.
 
 - Syntax: Formale Regeln, welche Sätze gebildet werden können:
-    
+  
         "Der Elefant ass die Erdnuss." (syntaktisch korrekt)
         "Der Elefant ass Erdnuss die." (syntaktisch falsch)
   
 - Semantik: (Formale) Regeln, welche Sätze eine Bedeutung haben:
-    
+  
         "Der Elefant ass die Erdnuss." (semantisch korrekt "sinnhaft)
         "Die Erdnuss ass den Elefanten." (semantisch falsch "sinnlos")
     
@@ -150,8 +180,7 @@ Die übrigen Bausteine werden mit Vorteil als Pseudocode-Konstrukte dargestellt.
 - Typisches Merkmal eines Algorithmus: das eigentliche Ziel wird im Verfahren nicht erwähnt. Das ist häufig der Fall, es muss oft ein Schema "blind befolgt" werden 
     - (Beispiel: aus einem Labyrinth kann immer der Ausweg gefunden werden, indem die Wand mit einer Hand berührt wird).
 
-
-###Reguläre Ausdrücke (Regular Expressions oder Regex) 
+### Reguläre Ausdrücke (Regular Expressions oder Regex) 
 
 ist ein anderer Formalismus, mit dem einfachere, i.d.R. nicht-rekursive Grammatiken definiert werden können. Es wird standardmässig verwendet zur Erkennung/Suche von Textmustern. Eine vereinfachte Form benutzt die folgenden Konventionen:
 
@@ -190,8 +219,7 @@ Die effektiven Regex-Implementierungen in verschiedenen Sprachen und Umgebungen 
             return 0; // wenn requires nicht erfüllt
         }
 
-
-##Datentypen und Terme
+## Datentypen und Terme
 
 bool
 
@@ -231,7 +259,8 @@ Für die Implementierung dieser Art von Algorithmen eignen sich besonders sog. f
     - Input => Formel => Output
     - Keine Schleifen, sondern Rekursion
     - Keine Zwischenspeicherung
-        
+      
+
 Die Umwandlung von Input zu Output erfolgt mittels einer Funktion. Diese entspricht in etwa einer Java-Klassenmethode (static) mit einem Rückgabewert (Output) und einer Parameterliste (Input). In unserem Kontext werden Funktionen als Terme mit Unbestimmten (Symbole ohne festen Wert) definiert. (Man nennt sie auch zusammengesetzte Funktionen, weil die Terme Aufrufe von anderen Funktionen beinhalten können.)
 
 Ein applikativer Algorithmus ist eine Menge von Funktionsdefinitionen:
@@ -271,7 +300,7 @@ Die Algorithmenausführung imperativer Algorithmen besteht aus einer Folge von B
 
 Grammatik Aufgabe:
 
-###Backus-Naur-Form (BNF)
+### Backus-Naur-Form (BNF)
 
 ![](links/2021-01-19_15-28-27.png)
 
@@ -284,8 +313,9 @@ Grammatik Aufgabe:
     <operantor>       ::= + | -
     <ausdruck>        ::= <operand> <operator> <ausdruck> | <operand>
     <klammerausdruck> ::= (<ausdruck>)
-        
-        
+
+
+​        
     3
         
     power(m, e) =   if m = 0 && e <= 0 then power(m, e) else    --> Infinite Loop wenn undefinierte Eingabe
@@ -361,10 +391,10 @@ Grammatik Aufgabe:
 
 
 - PseudoCode
-   
+  
 
         algorithm SeqSearch (F, k) → p
-
+        
         Eingabe: Folge F der Länge n, Suchschlüssel k
         Ausgabe: Position p des ersten Elementes aus F, das gleich k ist, sonst NO_KEY
         
@@ -374,7 +404,7 @@ Grammatik Aufgabe:
             fi 
         od; 
         return NO_KEY
-        
+    
 - Aufwand
 
 | |Anzahl Vergleiche|
@@ -477,7 +507,7 @@ Grammatik Aufgabe:
                 System.out.println("Binär: " + search(f, k));
             }
         }
-        
+
 - Vergleich des Aufwandes
 
 ![](links/2020-11-18_10-07-39.png)       
@@ -536,7 +566,7 @@ Grammatik Aufgabe:
             od; 
             F[j] := m /* j zeigt auf Einfügeposition */ 
         od
-        
+
 ![](links/2020-11-18_10-18-30.png)
 
 - in Java
@@ -556,7 +586,7 @@ Grammatik Aufgabe:
                 array[j] = m;
             }
         }
-        
+
 - Beispiel Präsenz
 
     - Diese Methode entspricht dem üblichen Vorgehen beim manuellen Sortieren. Die sortierte Folge wird schrittweise (Schritt = Durchlauf) am linken Rand aufgebaut, der Anfang des unsortierten rechten Teils („Grenzstein“) ist fett markiert.
@@ -655,7 +685,7 @@ Grammatik Aufgabe:
                 marker−−;
             }
         }
-        
+
 - Beispiel aus Präsenz
 
     - Eine einfache, „gerade aus“ - Methode. Die sortierte Folge wird schrittweise (Schritt = Durchlauf) am rechten Rand aufgebaut, der unsortierte linke Teil ist fett markiert.
@@ -705,8 +735,9 @@ Grammatik Aufgabe:
                 }
                 assert isSorted(a, comparator);
             }
-        
-        
+
+
+​        
            /***************************************************************************
             *  Helper sorting functions.
             ***************************************************************************/
@@ -720,16 +751,18 @@ Grammatik Aufgabe:
             private static boolean less(Comparator comparator, Object v, Object w) {
                 return comparator.compare(v, w) < 0;
             }
-                
-                
+
+
+​                
             // exchange a[i] and a[j]
             private static void exch(Object[] a, int i, int j) {
                 Object swap = a[i];
                 a[i] = a[j];
                 a[j] = swap;
             }
-        
-        
+
+
+​        
            /***************************************************************************
             *  Check if array is sorted - useful for debugging.
             ***************************************************************************/
@@ -757,9 +790,10 @@ Grammatik Aufgabe:
                     if (less(comparator, a[i], a[i-1])) return false;
                 return true;
             }
-        
-        
-        
+
+
+​        
+​        
             // print array to standard output
             private static void show(Comparable[] a) {
                 for (int i = 0; i < a.length; i++) {
@@ -852,12 +886,12 @@ Grammatik Aufgabe:
                 if (exchanges == 0) break;
             }
         }
-    
+        
         // is v < w ?
         private static <Key extends Comparable<Key>> boolean less(Key v, Key w) {
             return v.compareTo(w) < 0;
         }
-    
+        
         // exchange a[i] and a[j]
         private static <Key extends Comparable<Key>> void exch(Key[] a, int i, int j) {
             Key swap = a[i];
@@ -898,13 +932,13 @@ Grammatik Aufgabe:
     1. Die Folge wird in Teile zerlegt, die jeweils in den Hauptspeicher passen und daher getrennt voneinander mit internen Verfahren sortiert werden können. Diese sortierten Teilfolgen werden wieder in Dateien ausgelagert.
     
     2. Anschließend werden die Teilfolgen parallel eingelesen und gemischt, indem jeweils das kleinste Element aller Teilfolgen gelesen und in die neue Folge (d.h. wieder in eine Datei) geschrieben wird.
-   
- 
+
+
 - PseudoCode
 
 
     - Mischen von zwei Folgen:
-
+    
             procedure Merge (F 1 , F 2 ) → F
             
             Eingabe: zwei zu sortierende Folgen F 1 , F2  
@@ -920,7 +954,7 @@ Grammatik Aufgabe:
 
 
     - Sortieren durch Mischen:
-
+    
             algorithm MergeSort (F) → FS 
             
             Eingabe: eine zu sortierende Folge F 
@@ -1061,8 +1095,9 @@ Grammatik Aufgabe:
             QuickSort (F, u, pn − 1); 
             QuickSort (F, pn + 1, o) 
         fi
-        
-        
+
+
+​        
         algorithm Zerlege (F, u, o, p) → pn
         Eingabe: zu zerlegende Folge F, untere und obere Grenze u, o, Position p des Pivot-Elementes 
         Ausgabe: neue Position pn des Pivot-Elementes
@@ -1237,8 +1272,8 @@ Grammatik Aufgabe:
     - Sie kennen die Eigenschaften verschiedener Sortieralgorithmen.
     - Sie können beurteilen, wann ein konkreter Sortieralgorithmus eingesetzt werden kann.
 
+#### Auftrag
 
-####Auftrag
 - Vergleich von Sortieralgorithmen
     - Vergleichen Sie die Ihnen bekannten Sortieralgorithmen bezüglich folgender Kriterien:
         - Performanz O(n⋅log(n)) oder O(n^2)
@@ -1257,12 +1292,13 @@ Grammatik Aufgabe:
 
 #### Präsenz
 
+### Church'sche These
 
-###Church'sche These
 - Aus Möglichkeit der Abbildung zwischen Modellen folgt:
     - alle bisher diskutierten Algorithmenmodelle (und weitere) leisten prinzipiell gleich viel
     - sie führen auf die gleiche Klasse berechenbarer Funktionen
     
+
 Die Klasse der intuitiv berechenbaren Funktionen stimmt mit den formalen Klassen der (Registermaschinen-, imperativ, applikativ, Markov-, etc.) berechenbaren Funktionen überein.
 
 - **These prinzipiell nicht beweisbar!**
@@ -1313,7 +1349,6 @@ Für die algorithmische Lösung eines gegebenen Problems ist es unerlässlich, d
     
     Da die Anzahl der Iterationen n beträgt, ergibt sich der Gesamtaufwand für die obige Schleife aus n · O(1) = O(n).
     
-
 - **(2) Geschachtelte for-Schleifen**
 
     **n · n · O(1) = O(n^2 )**
@@ -1348,7 +1383,7 @@ Für die algorithmische Lösung eines gegebenen Problems ist es unerlässlich, d
 
 
 - **(4) if-else-Bedingungen**
-    
+  
     ohne for-Schleife:
     
     **(O(1))**
@@ -1424,7 +1459,7 @@ Schreiben Sie eine Random Access Machines mit Remasp, die testet, ob eine Zahl e
     //R3 = 1
     
     //Wenn am Ende R2=0, ist die Zahl R1 nicht Prim. Wenn am Ende R2=1, ist die Zahl R1 Prim.
-
+    
             load 1          // Eingabe zu kontrollierende Zahl
             sub 3           // Kontrolle ob Zahl nicht 1
             jzero noprim    // x<1
@@ -1488,7 +1523,7 @@ Gleichbedeutend mit “unlösbare Probleme”. Diese existieren und sind zahlrei
 Ihre Existenz kann man sogar voraussagen basierend auf dem Begriff der Abzählbarkeit
 
   ![](links/2020-11-19_07-10-55.png)
-  
+
   - Das Halteproblem
   
           »Hält ein Algorithmus irgendwann an, wenn man ihm seinen eigenen Text eingibt?«
@@ -1498,7 +1533,7 @@ Ihre Existenz kann man sogar voraussagen basierend auf dem Begriff der Abzählba
       - Um die Nichtentscheidbarkeit des speziellen Halteproblems zu zeigen, betrachten wir zuerst das allgemeine Halteproblem. Das allgemeine Halteproblem ist y ∈ dom ϕ x , also:
 
               »Hält Algorithmus x bei der Eingabe von y?«
-  
+    
       - Angenommen, wir hätten eine Maschine (Algorithmus) STOP mit zwei Eingaben, nämlich einem Algorithmentext x und einer Eingabe y für x, sowie zwei Ausgaben:
 
               JA: x stoppt bei Eingabe von y 
@@ -1537,7 +1572,7 @@ Ihre Existenz kann man sogar voraussagen basierend auf dem Begriff der Abzählba
         Aus einem grundlegenden Satz der Algorithmentheorie (Satz von Rice) folgt die folgende bemerkenswerte Aussage:
 
             Jede nichttriviale semantische Eigenschaft von Algorithmen ist nichtentscheidbar.
-            
+        
         Nicht entscheidbar sind also u.a. die folgenden Probleme:
     
             1. Ist die berechnete Funktion total? Überall undeﬁniert? Injektiv? Surjektiv? Bijektiv? etc. etc.
@@ -1561,9 +1596,8 @@ Nachweis der Korrektheit eines Algorithmus bezieht sich immer auf eine Spezifika
     - Veriﬁkation: formaler Beweis der Korrektheit bezüglich einer formalen Speziﬁkation
     - Validation: (nichtformaler) Nachweis der Korrektheit bezüglich einer informellen oder formalen Speziﬁkation (etwa systematisches Testen)
 
+### Imperative Algorithmen
 
-###Imperative Algorithmen
-    
 ![](links/2020-11-19_07-43-20.png)
 
 Gilt die Bedingung VOR unmittelbar vor Ausführung von ANW und terminiert ANW, so gilt die Bedingung NACH unmittelbar nach Ausführung von ANW.
@@ -1599,7 +1633,7 @@ Gilt die Bedingung VOR unmittelbar vor Ausführung von ANW und terminiert ANW, s
     ![](links/2020-11-19_09-48-03.png)
     
 ### Applikative Algorithmen
-    
+
 Für den Nachweis von Eigenschaften - wie z.B. der Korrektheit - applikativer Algorithmen verwendet man typischerweise Induktionsbeweise, die Sruktur der rekursiven Funktionsdefinition folgen.
 
 - Mathematische Induktion
@@ -1648,6 +1682,7 @@ Greedy: Nehme jeweils immer die größte Münze unter dem Zielwert und ziehe sie
     4. Es existiert eine Bewertungsfunktion für partielle und vollständige Lösungen.
     5. Gesucht wird die bzw. eine optimale Lösung bezüglich der Bewertungsfunktion.
     
+
 Beispiel: Optimales Kommunikationsnetz
 
     [ R := ein beliebiger Knoten P ] 
@@ -1662,7 +1697,7 @@ Beispiel: Optimales Kommunikationsnetz
             fi 
         od 
     od
-  
+
 ##### Rekursion
 
 - What's the simplest possible input?
@@ -1688,7 +1723,7 @@ Divide-and-conquer: rekursive Rückführung eines zu lösenden Problems auf ein 
 Sortierverfahren QuickSort und MergeSort
 
 - Grundprinzipien
-    
+  
     1. Zerlege das gegebene Problem in mehrere getrennte Teilprobleme,
         a. löse diese einzeln
         b. und setze die Lösungen des ursprünglichen Problems aus den Teillösungen zusammen.
@@ -1810,6 +1845,7 @@ Beispiel: Tic Tac Toe mit Backtracking
         - Stack ist eher für technische Zwecke benutzbar.
             - Beispiel: Auswertung von arithmetischen Ausdrücken
             
+        
         ![](links/2020-11-21_14-25-06.png)
         
         - Merkmale:
@@ -1817,7 +1853,7 @@ Beispiel: Tic Tac Toe mit Backtracking
             - Dank der Polymorphie von Object können Objekte von beliebigen Typen gespeichert werden
             - Die Klasse hat eine einfache Interface push / pop / top / isEmpty
             - Die Kapazität ist beschränkt auf ein Maximum (--> Exception)
-    
+        
                     public interface Stack {
                         public void push(Object obj) 
                             throws StackException; 
@@ -1827,8 +1863,8 @@ Beispiel: Tic Tac Toe mit Backtracking
                             throws StackException; 
                         public boolean isEmpty();
                     }
-    
 
+    
                     public class StackExample {
                         public static void main(String args[]) { 
                             Stack stack = new ArrayStack(); 
@@ -1847,11 +1883,11 @@ Beispiel: Tic Tac Toe mit Backtracking
                             }
                         }
                     }
-    
+        
         - Queue (Warteschlange) --> FIFO – Prinzip (First In First Out)
-    
+        
         - Die Einsetzbarkeit von Queue für reale Probleme ist naheliegend (Parkhaus, Postschalter).
-    
+        
                     public interface Queue {
                         public void enter(Object obj) 
                             throws QueueException; 
@@ -1861,12 +1897,12 @@ Beispiel: Tic Tac Toe mit Backtracking
                             throws QueueException; 
                         public boolean isEmpty();
                     }
-
+    
     - **Verkettete Listen**
         - Datenstrukturen mit beliebig erweiterbarer Länge.
         - Knoten ist eine generische Hilfsklasse.
             - Ein Knoten – Objekt beinhaltet den effektiven Inhalt (wert) und den Zeiger auf ein anderes Knoten – Objekt (verbindung).
-
+    
         Jede Liste besitzt ein Basiselement anker (auch head oder root), über das sie angesprochen wird. Das Element anker zeigt aufs nächste Element, welches aufs übernächste Element zeigt usw.
     
         Bei einer rückwärts verketteten Liste werden neue Elemente zwischen anker und seinen Nachbar eingeschoben:
@@ -1917,7 +1953,7 @@ Beispiel: Tic Tac Toe mit Backtracking
         Der Zielknoten t kann auch zu einer anderen Liste gehören.
         
         ![](links/2020-11-21_14-41-26.png)
-
+    
     - Abarbeitung von Datenstrukturen - Iteratoren
     
         Sämtliche Elemente einer Sammlung werden „durchgewandert“, wobei jedes Element einer bestimmten Aktion unterzogen wird (prüfen, mutieren, kopieren u.ä.).
@@ -1968,7 +2004,7 @@ Beispiel: Tic Tac Toe mit Backtracking
         
         - Hashverfahren in Java
 
-######Java Collection Framework (JCF)
+###### Java Collection Framework (JCF)
 
 ![](links/2020-12-11_17-37-33.png)
 
@@ -2065,7 +2101,7 @@ Beispiel-Baum:
             Eingabe: Knoten k eines binären Baumes mit Verweis auf
                      linken (k.left) und rechten (k.right) Teilbaum 
                      sowie dem Element k.elem
-  
+        
             Inorder (k.left); /* besuche linken Teilbaum */ 
             Verarbeite k.elem; 
             Inorder (k.right) /* besuche rechten Teilbaum */
@@ -2076,13 +2112,13 @@ Beispiel-Baum:
 
         algorithm Preorder (k) 
             Eingabe: Knoten k eines binären Baumes
-  
+        
             Verarbeite k.elem; 
             Preorder (k.left); /* besuche linken Teilbaum */ 
             Preorder (k.right) /* besuche rechten Teilbaum */
 
 - Postorder-Durchlauf → Rekursiv
-    
+  
     D → E → B → F → G → C → A
 
         algorithm Postorder (k) 
@@ -2121,7 +2157,7 @@ Methoden zur Traversierung:
         printInorder(n.getRight()); 
         } 
     }
-
+    
     private void printPreorder(TreeNode n) { 
     if (n != nullNode) { 
         System.out.println(n.toString()); 
@@ -2129,7 +2165,7 @@ Methoden zur Traversierung:
         printPreorder(n.getRight()); 
         } 
     }
-
+    
     private void printPostorder(TreeNode n) { 
     if (n != nullNode) { 
         printPostorder(n.getLeft()); 
@@ -2137,7 +2173,7 @@ Methoden zur Traversierung:
         System.out.println(n.toString()); 
         } 
     }
-
+    
     private void printLevelorder(Queue q) { 
         while (! q.isEmpty()) { 
             TreeNode n = (TreeNode) q.leave(); 
@@ -2189,7 +2225,7 @@ Suchverfahren Rekursiv:
     algorithm BinTreeSearchRecursive (k, x)
     Eingabe: Wurzel k des zu durchsuchenden Teilbaumes Schlüssel x des gesuchten Elementes 
     Ausgabe: Element mit dem gesuchten Wert bzw. null, wenn x nicht gefunden wurde
-
+    
     if k = null then 
         return null 
     else if x = k.key then
@@ -2527,8 +2563,7 @@ Beispiel Einfügen:
 
 ![](links/2020-12-12_13-36-56.png)
 
-
-#####Einführende Aufgaben zu Suchbäumen
+#### Einführende Aufgaben zu Suchbäumen
 
 - Fügen Sie die Zahlen 1, 2, 3,...,10 zu den folgenden Bäumen hinzu:
 
@@ -2543,7 +2578,7 @@ Beispiel Einfügen:
 -----
 #### Präsenz
 
-#####Bäume
+##### Bäume
 
 Bäume ➔ Systeme von Knoten, die mit Kanten verbunden sind.
 Dabei stellt jede Kante eine Vater <--> Kind – Beziehung dar.
@@ -2569,8 +2604,7 @@ Höhe = grösstes Niveau + 1
 
 Gewicht = Anzahl von Knoten
 
-
-#####Binäre Bäume (BB)
+##### Binäre Bäume (BB)
 
 **--> eine besonders wichtige Kategorie von Bäumen.**
 
@@ -2616,7 +2650,7 @@ Der Beginn-Pseudoknoten soll einen möglichst niedrigen Schlüssel haben und nur
 
 Der Ende-Pseudoknoten ist nur ein formaler Ersatz für null – Referenz.
 
-#####Suchen, Einfügen und Löschen in sortierten binären Bäumen
+##### Suchen, Einfügen und Löschen in sortierten binären Bäumen
 
 **Suchen:**
 
@@ -2655,8 +2689,7 @@ Die so gefundene Position ist nicht die einzige Möglichkeit, 4 könnte auch rec
 
 Der Zeitaufwand von den obigen Algorithmen hängt stark davon ab, wie ausgeglichen der Baum ist (diese Eigenschaft wird in der nächsten PVA thematisiert).
 
-
-#####Traversierungsarten von binären Bäumen
+##### Traversierungsarten von binären Bäumen
 
 Für die Verarbeitung vom ganzen Baum ist ein Durchwandern von allen Knoten (Traversierung) notwendig. Die Traversierung kann nach verschiedenen Schemen erfolgen.
 
@@ -2697,7 +2730,7 @@ Zuerst traversieren linker Teilbaum und rechter Teilbaum, dann Knoten
 
 ![](links/2020-12-19_14-09-59.png)
 
-#####Halde (Heap)
+##### Halde (Heap)
 
 Eine andere sehr interessante Anwendung von Bäumen für Sortierungszwecke.
 
@@ -2723,7 +2756,7 @@ Halde kann auch als Reihung dargestellt werden („verflacht in Levelorder“):
 
 Anmerkung: Die gleiche Darstellungsart mit nacheinander folgenden Ebenen in einer Reihung ist bei jedem kompletten BB anwendbar.
 
-#####HeapSort
+##### HeapSort
 
 Diese Methode nutzt die Tatsache aus, dass die Wurzel einer Halde immer den niedrigsten Schlüssel besitzt.
 
@@ -2750,6 +2783,7 @@ Entfernen:
 - Lasse es **Durchsickern** (eventuell bis auf Blattebene)
     - Sickern jeweils in Richtung des **kleinen** Elementes um Heap-Eigenschaften zu erhalten
     
+
 Entfernen der WUrzel im Heap:
 
 ![](links/2020-12-19_14-12-50.png)
@@ -2794,7 +2828,7 @@ Ausgeglichene Bäume:
 
 (Die durchschnittliche Höhe von binären Bäumen liegt bei ca. 2xlog2 n .)
 
-#####AVL-Bäume
+##### AVL-Bäume
 
 - AVL für **Adelson-Velskii und Landis (russische Mathematiker)
 - Binäre Suchbäume mit AVL-Kriterium:
@@ -2803,6 +2837,7 @@ Ausgeglichene Bäume:
 - **Bemerkung**: Es reicht nicht, dieses nur für die WUzel zu fordern!
     - Beide Teilbäume der Wurzel können entartet sein!
     
+
 Eine bessere Alternative zu perfekt ausgeglichenen Bäumen entsteht, wenn das Ausgeglichenheitskriterium abgeschwächt wird ➔ es wird lediglich verlangt, dass in jedem Knoten der **Höhenunterschied** zwischen seinen beiden Unterbäumen **höchstens 1 beträgt**.
 
 Suchbäume, welche diese Einschränkung erfüllen, werden als AVL-Bäume klassifiziert.
@@ -2858,6 +2893,7 @@ Verletzung der AVé-Eigenschaften tritt ein bei:
 - Einfügen in rechten Teilbaum des rechten Kindes
     - Rotation mit rechtem Kind
     
+
 In allen obigen Fällen kann die Verletzung des Gleichgewichts lokal korrigiert werden ➔ Zeitkomplexität O(1) (= konstant).
 
 Beim Löschen wird nach dem gleichen Prinzip verfahren ➔ wenn die AVLIntegrität dadurch verletzt ist, wird sie mittels Rotationen wiederhergestellt. Allerdings können die zu rotierenden Knoten beliebig hoch auf dem Pfad zur Wurzel liegen und müssen zuerst gefunden werden, indem der Pfad durchgewandert und die AVL-Bedingung auf allen Ebenen geprüft wird.
@@ -2868,7 +2904,7 @@ Die Baum-Mutation ist somit nicht lokal, bleibt jedoch auf einen Pfad beschränk
 
 Wenn die Blätter 7 und 10 gelöscht werden, ist eine Doppelrotation um die Wurzel nach rechts (im Uhrzeigersinn) notwendig ➔ 5 wird zur neuen Wurzel.
 
-#####B-Bäume
+##### B-Bäume
 
 Ein Knoten (bei B-Bäumen auch Seite genannt) beinhaltet eine variable Zahl von Elementen und ebenfalls eine variable Zahl von Verweisen auf Nachfolgerseiten (Kinder).
 
@@ -2942,6 +2978,7 @@ Beim Überlauf der Wurzelseite wird eine neue Wurzelseite in der höheren Ebene 
         - durch lexikographisch nächst klieneres Element von einer Blattseite ersetzen
         - eventuell auf Blattseite Unterlauf behandeln
     
+
 **Behandlung von Seitenunterlauf:**
 
 (i) Sich von links oder rechts ein Element borgen, wenn es dazu in einer Nachbarseite genug Elemente hat (Beispiel 1 unten).
@@ -2965,7 +3002,7 @@ Komplexität der Operationen:
 
 ![](links/2020-12-19_14-40-02.png)
 
-#####2,3,4-Bäume:
+##### 2,3,4-Bäume:
 
 Diese Kategorie von Bäumen hat die gleiche Struktur wie B-Bäume mit m = 1, es sind aber zusätzlich auch Knoten mit drei Elementen und vier Verweisen erlaubt (4-Knoten).
 
@@ -2988,7 +3025,7 @@ Demzufolge ist es von Vorteil, vor einer Mutation zuerst im betreffenden Pfad di
 
 Die durchs Einfügen entstandenen 4-Knoten werden allerdings so belassen und erst bei Bedarf im Rahmen einer zukünftigen Mutation beseitigt ➔ sie können auch als „lazy“ Knoten oder „Hypotheken“ interpretiert werden, die man zugunsten der Performance toleriert.
 
-#####Rot-Schwarz-Bäume (RB-Bäume)
+##### Rot-Schwarz-Bäume (RB-Bäume)
 
 Um die Verwaltung von Verzweigungen in einem 2,3,4-Baum zu vereinfachen, kann diese Struktur auch als ein binärer Suchbaum dargestellt werden.
 
@@ -3056,10 +3093,9 @@ Pracktischer Einsatz der Verfahren
 
 [Algo-Cheatsheet-Saake-Sattler](https://algs4.cs.princeton.edu/cheatsheet/)
 
+## Musterprüfung
 
-##Musterprüfung
-
-###1. Aufgabe: Sortieren (8 P / 10 min)
+### 1. Aufgabe: Sortieren (8 P / 10 min)
 
 a. [5 Punkte] 
 
@@ -3096,8 +3132,7 @@ Entscheiden Sie aufgrund dieses Ergebnisses, ob der zum Sortieren benutzte Algor
 Der Algorithmus ist nicht stabil, weil die zwei Einträge mit Wohnort Winterthur nach dem Sortiervorgang eine andere 
 Reihenfolge haben als in der ursprünglichen Liste.
 
-
-###2. Aufgabe: Iteration und Rekursion (10 P / 15 min)
+### 2. Aufgabe: Iteration und Rekursion (10 P / 15 min)
 
 a. [4 Punkte] 
 
@@ -3146,8 +3181,7 @@ public static int fakultaetRek(int n)
         return fakultaetRek(n - 1) * n;
     }
 
-
-###3. Aufgabe: Komplexität (10 P / 10 min)
+### 3. Aufgabe: Komplexität (10 P / 10 min)
 
 Die Klasse Aufgabe3 hat den folgenden Quelltext: 
 
@@ -3185,8 +3219,7 @@ wobei sie auf der höchsten Rekursionsstufe n Durchläufe und auf der tiefsten R
 
 Somit führt die Methode insgesamt n * (n + 1) / 2 Basisschritte durch und hat dementsprechend die Laufzeitkomplexität O(n2 ) .
 
-
-###4. Aufgabe: Verkettete Listen (8 P / 10 min)
+### 4. Aufgabe: Verkettete Listen (8 P / 10 min)
 
 Gegeben ist die folgende vereinfachte Implementation einer verketteten Liste: 
 
@@ -3257,9 +3290,8 @@ Die Methode soll den Nachfolger von prevNode entfernen. Wenn es keinen Nachfolge
             prevNode.setNext(next.getNext());
     }
 
+### 5. Aufgabe: Suchbäume (9 P / 15 min) a. [4 Punkte] 
 
-###5. Aufgabe: Suchbäume (9 P / 15 min) a. [4 Punkte] 
-   
 Gegeben ist die folgende Zahlenfolge:
 
 4, -2, 8, 0, 11, 7, -1, 1, 10, 12 .
@@ -3325,8 +3357,7 @@ Welchen Einfluss hätte diese Änderung auf den durchschnittlichen Zeitaufwand f
     wobei der Index 9 mit 10 Werten belegt werden kann. Die Kollisionen sind somit offensichtlich weniger gleichmässig verteilt. 
     Demzufolge ist für das Speichern (i) wie auch fürs Lesen (ii) im Durchschnitt ein höherer Zeitaufwand zu erwarten.
 
-
-###7. Aufgabe: Terminierung (9 P / 15 min)
+### 7. Aufgabe: Terminierung (9 P / 15 min)
 
 Beweisen Sie, dass die Berechnung des grössten gemeinsamen Teilers (GGT) von zwei ganzen positiven Zahlen X und Y 
 nach dem euklidischen Algorithmus terminiert.
